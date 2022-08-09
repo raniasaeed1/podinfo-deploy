@@ -6,10 +6,10 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: backend
+    app: nginx
   ports:
     - name: http
-      port: 7080
+      port: 80
       protocol: TCP
       targetPort: http
     - port: 9999
