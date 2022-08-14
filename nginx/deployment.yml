@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   # Define the Deployment Name
   name: nginx-deployment
-  namespace: test
+  namespace: dev
   labels:
     app: nginx
 spec:
