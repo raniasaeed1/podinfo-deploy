@@ -21,7 +21,7 @@ spec:
     spec:
       containers: # Container Details
       - name: nginx
-        image: raniasaeed123/nginxprivate:latest # {"$imagepolicy" :"flux-system:podinfo"}
+        image: docker.io/raniasaeed123/nginxprivate:main-2791da8-1660234212 # {"$imagepolicy" :"flux-system:podinfo"}
         imagePullPolicy: Always
         ports:
         - containerPort: 80
