@@ -1,35 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  # Define the Deployment Name
+  name: nginx-deployment
   namespace: test
+  labels:
+    app: nginx
 spec:
-  minReadySeconds: 3
-  revisionHistoryLimit: 5
-  progressDeadlineSeconds: 60
-  strategy:
-    rollingUpdate:
-      maxUnavailable: 0
-    type: RollingUpdate
+  # Define the Number of Pods
+  replicas: 4
+  revisionHistoryLimit: 0
+  # Define the Selector
   selector:
     matchLabels:
       app: nginx
   template:
     metadata:
       labels:
-        app: backend
+        app: nginx
     spec:
-      containers:
+      containers: # Container Details
       - name: nginx
-        image: raniasaeed123/nginx:latest
-        imagePullPolicy: IfNotPresent
+        image: raniasaeed123/nginxprivate:main-2791da8-1660234212 # {"$imagepolicy" :"flux-system:podinfo"}
+        imagePullPolicy: Always
         ports:
-        - name: http
-          containerPort: 80
-        resources:
-          limits:
-            cpu: 2000m
-            memory: 512Mi
-          requests:
-            cpu: 100m
-            memory: 32Mi
+        - containerPort: 80
+      imagePullSecrets:
+      - name: my-secret
