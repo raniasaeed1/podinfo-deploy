@@ -1,29 +1,25 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
 metadata:
-  # Define the Deployment Name
-  name: nginx-deployment
-  namespace: dev
-  labels:
-    app: nginx
+  name: flux-system
+  namespace: flux-system
 spec:
-  # Define the Number of Pods
-  replicas: 4
-  revisionHistoryLimit: 0
-  # Define the Selector
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers: # Container Details
-      - name: nginx
-        image: docker.io/raniasaeed123/nginxprivate:main-2791da8-1660234212 # {"$imagepolicy" :"flux-system:podinfo"}
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 80
-        imagePullSecrets:
-        - name: my-secret
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: 'Updated !'
+    push:
+      branch: main
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: podinfo
+    namespace: dev
+  update:
+    path: ./nginx
+    strategy: Setters
