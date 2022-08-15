@@ -25,5 +25,5 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 80
-      imagePullSecrets:
-      - name: my-secret
+        imagePullSecrets:
+        - name: my-secret
